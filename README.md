@@ -1,12 +1,5 @@
 ---
-title: hkh-profolio
-emoji: 🐳
-colorFrom: red
-colorTo: purple
-sdk: static
-pinned: false
-tags:
-  - deepsite
----
+title: Hatem Alkhatib's Profolio
+emoji: 🍉
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+
