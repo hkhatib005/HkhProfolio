@@ -1,19 +1,391 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>My static Space</title>
-		<link rel="stylesheet" href="style.css" />
-	</head>
-	<body>
-		<div class="card">
-			<h1>Welcome to your static Space!</h1>
-			<p>You can modify this app directly by editing <i>index.html</i> in the Files and versions tab.</p>
-			<p>
-				Also don't forget to check the
-				<a href="https://huggingface.co/docs/hub/spaces" target="_blank">Spaces documentation</a>.
-			</p>
-		</div>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hatem Alkhatib | Modern CS Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            scroll-behavior: smooth;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .skill-badge {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .skill-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+        }
+        
+        .project-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 4px solid #e0e7ff;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 33px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: #e2e8f0;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active-nav::after {
+            width: 100%;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(16, 185, 129, 0.3) 100%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            filter: blur(60px);
+            z-index: -1;
+            opacity: 0.8;
+        }
+        
+        .blob-1 {
+            top: 10%;
+            left: -10%;
+            animation: blob-move 25s infinite alternate;
+        }
+        
+        .blob-2 {
+            bottom: 10%;
+            right: -10%;
+            animation: blob-move 30s infinite alternate-reverse;
+        }
+        
+        @keyframes blob-move {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(50px, -50px) rotate(180deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.03);
+        }
+        
+        .contact-input {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .contact-input:focus {
+            background: white;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+    <!-- Blob Background Elements -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    
+    <!-- Header/Navigation -->
+    <header class="glass-card fixed w-full top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold">
+                    <span class="gradient-text">H</span>atem <span class="gradient-text">A</span>lkhatib
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#about" class="nav-link active-nav font-medium">About</a>
+                    <a href="#education" class="nav-link font-medium">Education</a>
+                    <a href="#experience" class="nav-link font-medium">Experience</a>
+                    <a href="#projects" class="nav-link font-medium">Projects</a>
+                    <a href="#skills" class="nav-link font-medium">Skills</a>
+                    <a href="#contact" class="nav-link font-medium">Contact</a>
+                </nav>
+                <button class="md:hidden focus:outline-none" id="menu-toggle">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden glass-card" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-50">About</a>
+                <a href="#education" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-50">Education</a>
+                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-50">Experience</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-50">Projects</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-50">Skills</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-50">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="about" class="min-h-screen flex items-center pt-20">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-16 md:mb-0" data-aos="fade-right">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-4">Hatem Alkhatib</h1>
+                    <h2 class="text-3xl md:text-4xl font-semibold mb-6 gradient-text">Computer Science Sophomore</h2>
+                    <p class="text-lg mb-8 text-slate-600 max-w-lg">
+                        Passionate software engineering student with experience in full-stack development, 
+                        data analysis, and cybersecurity. Currently pursuing a BS in Computer Science with 
+                        minors in Cybersecurity & Networking at CUNY.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#contact" class="gradient-bg text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition duration-300 hover-scale">
+                            Contact Me
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" class="border border-indigo-500 text-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-indigo-50 transition duration-300 hover-scale">
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center" data-aos="fade-left">
+                    <div class="relative">
+                        <div class="w-64 h-64 md:w-80 md:h-80 bg-white rounded-2xl overflow-hidden border-4 border-white shadow-2xl floating">
+                            <!-- Placeholder for profile image -->
+                            <div class="w-full h-full bg-gradient-to-br from-indigo-100 to-emerald-100 flex items-center justify-center">
+                                <div class="text-center">
+                                    <i class="fas fa-user text-8xl text-indigo-400 opacity-80"></i>
+                                    <p class="text-indigo-500 font-medium mt-2">Hatem Alkhatib</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-5 -right-5 bg-white text-indigo-600 px-4 py-2 rounded-lg shadow-lg hover-scale">
+                            <div class="flex items-center">
+                                <i class="fas fa-graduation-cap mr-2"></i>
+                                <span>Sophomore</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">Education</h2>
+            
+            <div class="max-w-4xl mx-auto glass-card rounded-2xl overflow-hidden p-8 hover-scale" data-aos="zoom-in">
+                <div class="flex flex-col md:flex-row">
+                    <div class="md:w-1/3 flex justify-center mb-8 md:mb-0">
+                        <div class="w-32 h-32 bg-gradient-to-br from-indigo-100 to-emerald-100 rounded-2xl flex items-center justify-center shadow-inner">
+                            <i class="fas fa-university text-5xl text-indigo-500"></i>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <h3 class="text-2xl font-semibold text-indigo-700 mb-2">City University of New York</h3>
+                        <p class="text-slate-600 mb-1">Bachelor of Science in Computer Science (Software Engineering)</p>
+                        <p class="text-slate-600 mb-6">Minor: Cybersecurity & Networking | Expected May 2027</p>
+                        
+                        <div class="bg-indigo-50 p-5 rounded-xl">
+                            <h4 class="font-medium text-indigo-700 mb-3">Relevant Coursework:</h4>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="bg-white px-4 py-2 rounded-full text-sm shadow-sm">Data Structures & Algorithms</span>
+                                <span class="bg-white px-4 py-2 rounded-full text-sm shadow-sm">Object-Oriented Programming</span>
+                                <span class="bg-white px-4 py-2 rounded-full text-sm shadow-sm">Calculus I-III</span>
+                                <span class="bg-white px-4 py-2 rounded-full text-sm shadow-sm">Linear Algebra</span>
+                                <span class="bg-white px-4 py-2 rounded-full text-sm shadow-sm">Discrete Structures</span>
+                                <span class="bg-white px-4 py-2 rounded-full text-sm shadow-sm">Data Ethics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">Professional Experience</h2>
+            
+            <div class="max-w-4xl mx-auto relative pl-16 timeline">
+                <!-- JPMorgan Experience -->
+                <div class="mb-12 relative timeline-item" data-aos="fade-right">
+                    <div class="glass-card p-8 rounded-2xl shadow-sm hover-scale">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                            <h3 class="text-2xl font-semibold text-indigo-700">JPMorgan & Chase</h3>
+                            <span class="text-indigo-600 font-medium bg-indigo-100 px-3 py-1 rounded-full">May 2024 - Aug 2024</span>
+                        </div>
+                        <p class="text-slate-600 mb-4">Software Engineering Intern | New York, NY</p>
+                        <ul class="list-disc pl-5 space-y-3 text-slate-700">
+                            <li>Analyzed and interpreted financial data to identify key trends, leading to a 10% increase in project efficiency through data-driven decision-making.</li>
+                            <li>Collaborated with senior engineers to develop innovative solutions for real-world tech challenges, enhancing problem-solving skills.</li>
+                            <li>Contributed actionable insights during team discussions, driving a 15% improvement in project effectiveness.</li>
+                            <li>Automated geoprocessing workflows using Python, optimizing data processing and increasing operational efficiency.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Project Basta Experience -->
+                <div class="mb-12 relative timeline-item" data-aos="fade-right">
+                    <div class="glass-card p-8 rounded-2xl shadow-sm hover-scale">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                            <h3 class="text-2xl font-semibold text-indigo-700">Project Basta (Google) Discovery Fellow</h3>
+                            <span class="text-emerald-600 font-medium bg-emerald-100 px-3 py-1 rounded-full">April 2025 - Present</span>
+                        </div>
+                        <p class="text-slate-600 mb-4">Remote</p>
+                        <ul class="list-disc pl-5 space-y-3 text-slate-700">
+                            <li>Selected for the Discovery Program at BASTA, a career development initiative focused on professional growth and leadership.</li>
+                            <li>Engaged in hands-on workshops, mentorship, and networking to build industry-specific skills.</li>
+                            <li>Developed critical thinking, communication, and problem-solving abilities through real-world case studies and collaborative projects.</li>
+                            <li>Gained exposure to career pathways, industry insights, and best practices from experienced professionals.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- CUNY Tech Prep Experience -->
+                <div class="mb-12 relative timeline-item" data-aos="fade-right">
+                    <div class="glass-card p-8 rounded-2xl shadow-sm hover-scale">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                            <h3 class="text-2xl font-semibold text-indigo-700">CUNY Tech Prep</h3>
+                            <span class="text-indigo-600 font-medium bg-indigo-100 px-3 py-1 rounded-full">Aug 2024 - Present</span>
+                        </div>
+                        <p class="text-slate-600 mb-4">Software Engineering Fellowship | New York, NY</p>
+                        <ul class="list-disc pl-5 space-y-3 text-slate-700">
+                            <li>Developing web applications using JavaScript, React, Node.js, and SQL.</li>
+                            <li>Strengthened understanding of data structures, algorithms, and software engineering principles.</li>
+                            <li>Participated in mock interviews, career workshops, and technical coding challenges.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Walmart Summit Experience -->
+                <div class="relative timeline-item" data-aos="fade-right">
+                    <div class="glass-card p-8 rounded-2xl shadow-sm hover-scale">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                            <h3 class="text-2xl font-semibold text-indigo-700">Walmart Global Tech Software Engineering Summit</h3>
+                            <span class="text-emerald-600 font-medium bg-emerald-100 px-3 py-1 rounded-full">April 2025</span>
+                        </div>
+                        <p class="text-slate-600 mb-4">Bentoville, AK</p>
+                        <ul class="list-disc pl-5 space-y-3 text-slate-700">
+                            <li>Selected from a competitive applicant pool to attend an exclusive summit focused on innovation and large-scale systems.</li>
+                            <li>Collaborated with Walmart engineers on hands-on technical workshops, problem-solving challenges, and real-world case studies.</li>
+                            <li>Gained insights from senior tech leaders on AI, cloud computing, and high-performance software solutions.</li>
+                            <li>Expanded professional network by engaging with recruiters, engineers, and fellow top-tier students nationwide.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text" data-aos="fade-up">Technical Projects</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Soccer Player Stats Project -->
+                <div class="project-card rounded-2xl overflow-hidden shadow-lg border border-slate-100" data-aos="zoom-in">
+                    <div class="p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-gradient-to-br from-indigo-100 to-emerald-100 p-4 rounded-xl mr-4">
+                                <i class="fas fa-futbol text-indigo-500 text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold text-indigo-700">Soccer Player Stats</h3>
+                        </div>
+                        <p class="text-slate-600 mb-6">C++ application to manage and analyze soccer player statistics with OOP principles.</p>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-medium text-slate-700 mb-3">Features:</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-slate-600">
+                                <li>Add, edit, delete, and display player performance data</li>
+                                <li>Object-oriented design with classes and inheritance</li>
+                                <li>Sorting and searching algorithms for quick retrieval</li>
+                                <li>Clean code structure and efficient memory management</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-3">
+                            <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm font-medium">C++</span>
+                            <span class="bg-indigo-100 text-indigo-700
 </html>
